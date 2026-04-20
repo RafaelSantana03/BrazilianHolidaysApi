@@ -1,0 +1,79 @@
+﻿
+using BrazilianHolidays.Data.Context;
+using BrazilianHolidays.Domain.Entities;
+using BrazilianHolidays.Domain.Enums;
+using BrazilianHolidays.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace BrazilianHolidays.Data.Repositories;
+
+public class FeriadoRepository : IFeriadoRepository
+{
+    private readonly AppDbContext _context;
+    public FeriadoRepository(AppDbContext context)
+    {
+        _context = context;
+    }
+    public async Task<IEnumerable<Feriado>> ObterTodosPorAnoAsync(int ano)
+    {
+        return await _context.Feriados
+            .Where(f => f.Data.Year == ano)
+            .OrderBy(f => f.Data)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Feriado>> ObterPorAnoETipoAsync(int ano, TipoFeriado tipo)
+    {
+        return await _context.Feriados
+            .Where(f => f.Data.Year == ano && f.Tipo == tipo)
+            .OrderBy(f => f.Data)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Feriado>> ObterPorAnoEUFAsync(int ano, string uf)
+    {
+        return await _context.Feriados
+                   .Where(f => f.Data.Year == ano &&
+                     (f.Tipo == TipoFeriado.Nacional ||
+                     (f.Tipo == TipoFeriado.Estadual && f.UF == uf)))
+                   .OrderBy(f => f.Data)
+                   .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Feriado>> ObterPorAnoEMunicipioAsync(int ano, int codigoIbge)
+    {
+        return await _context.Feriados
+            .Where(f => f.Data.Year == ano &&
+               (f.Tipo == TipoFeriado.Nacional ||
+                f.Tipo == TipoFeriado.Estadual ||
+                (f.Tipo == TipoFeriado.Municipal && f.CodigoIbgeMunicipio == codigoIbge)))
+            .OrderBy(f => f.Data)
+            .ToListAsync();
+    }
+
+    public async Task<Feriado?> ObterProximoFeriadoAsync()
+    {
+        var hoje = DateOnly.FromDateTime(DateTime.Today);
+        return await _context.Feriados
+            .Where(f => f.Data >= hoje)
+            .OrderBy(f => f.Data)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task AdicionarAsync(Feriado feriado)
+    {
+        await _context.Feriados.AddAsync(feriado);
+        await _context.SaveChangesAsync();  
+    }
+
+    public async Task AdicionarVariosAsync(IEnumerable<Feriado> feriados)
+    {
+        await _context.Feriados.AddRangeAsync(feriados);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<bool> ExisteParaAnoAsync(int ano)
+    {
+        return await _context.Feriados.AnyAsync(f => f.Data.Year == ano);
+    }
+}
