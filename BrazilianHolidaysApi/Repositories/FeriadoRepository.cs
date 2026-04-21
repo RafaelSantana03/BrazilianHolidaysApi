@@ -1,11 +1,10 @@
-﻿
-using BrazilianHolidays.Data.Context;
-using BrazilianHolidays.Domain.Entities;
-using BrazilianHolidays.Domain.Enums;
-using BrazilianHolidays.Domain.Interfaces;
+﻿using BrazilianHolidaysApi.Models;
+using BrazilianHolidaysApi.Enums;
+using BrazilianHolidaysApi.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BrazilianHolidaysApi.Data.Context;
 
-namespace BrazilianHolidays.Data.Repositories;
+namespace BrazilianHolidaysApi.Data.Repositories;
 
 public class FeriadoRepository : IFeriadoRepository
 {

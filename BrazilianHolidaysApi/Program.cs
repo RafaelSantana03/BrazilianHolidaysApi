@@ -1,8 +1,9 @@
-using BrazilianHolidays.Application.Services;
-using BrazilianHolidays.Data.Context;
-using BrazilianHolidays.Data.Repositories;
 using BrazilianHolidays.Data.Seed;
-using BrazilianHolidays.Domain.Interfaces;
+using BrazilianHolidaysApi.Data;
+using BrazilianHolidaysApi.Data.Context;
+using BrazilianHolidaysApi.Data.Repositories;
+using BrazilianHolidaysApi.Interfaces;
+using BrazilianHolidaysApi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Injeção de dependência
 builder.Services.AddScoped<IFeriadoRepository, FeriadoRepository>();
-builder.Services.AddScoped<FeriadoService>();
+builder.Services.AddScoped<IFeriadoService>();
 
 var app = builder.Build();
 
@@ -39,6 +40,7 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
     FeriadoSeed.Popular(context);
 }
 

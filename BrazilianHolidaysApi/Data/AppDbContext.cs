@@ -1,8 +1,7 @@
-﻿
-using BrazilianHolidays.Domain.Entities;
+﻿using BrazilianHolidaysApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BrazilianHolidays.Data.Context;
+namespace BrazilianHolidaysApi.Data.Context;
 
 public class AppDbContext : DbContext
 {

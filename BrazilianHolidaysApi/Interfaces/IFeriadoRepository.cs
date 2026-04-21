@@ -1,8 +1,8 @@
 ﻿
-using BrazilianHolidays.Domain.Entities;
-using BrazilianHolidays.Domain.Enums;
+using BrazilianHolidaysApi.Models;
+using BrazilianHolidaysApi.Enums;
 
-namespace BrazilianHolidays.Domain.Interfaces;
+namespace BrazilianHolidaysApi.Interfaces;
 
 public interface IFeriadoRepository
 {

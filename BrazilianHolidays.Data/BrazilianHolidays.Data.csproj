@@ -15,8 +15,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BrazilianHolidays.Domain\BrazilianHolidays.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

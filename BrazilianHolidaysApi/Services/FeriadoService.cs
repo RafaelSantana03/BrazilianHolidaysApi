@@ -1,19 +1,19 @@
-﻿using BrazilianHolidays.Application.DTOs;
-using BrazilianHolidays.Domain.Enums;
-using BrazilianHolidays.Domain.Interfaces;
+﻿using BrazilianHolidaysApi.DTOs;
+using BrazilianHolidaysApi.Enums;
+using BrazilianHolidaysApi.Interfaces;
 
-namespace BrazilianHolidays.Application.Services;
+namespace BrazilianHolidaysApi.Services;
 
-public class FeriadoService
+public class IFeriadoService
 {
     private readonly IFeriadoRepository _repository;
 
-    public FeriadoService(IFeriadoRepository repository)
+    public IFeriadoService(IFeriadoRepository repository)
     {
         _repository = repository;
     }
 
-    private static FeriadoDto ParaDto(Domain.Entities.Feriado f) => new FeriadoDto
+    private static FeriadoDto ParaDto(BrazilianHolidaysApi.Models.Feriado f) => new FeriadoDto
     {
         Nome = f.Nome,
         Data = f.Data,

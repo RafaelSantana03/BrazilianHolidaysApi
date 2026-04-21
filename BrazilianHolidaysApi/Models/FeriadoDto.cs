@@ -1,6 +1,6 @@
-﻿using BrazilianHolidays.Domain.Enums;
+﻿using BrazilianHolidaysApi.Enums;
 
-namespace BrazilianHolidays.Application.DTOs;
+namespace BrazilianHolidaysApi.DTOs;
 
 public class FeriadoDto
 {
