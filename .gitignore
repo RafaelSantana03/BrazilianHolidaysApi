@@ -361,3 +361,27 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+
+# App settings sensíveis
+appsettings.Development.json
+
+# Logs
+*.log
+
+# Frontend build
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
