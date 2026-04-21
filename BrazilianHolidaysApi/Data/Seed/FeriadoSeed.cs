@@ -1,4 +1,5 @@
-﻿using BrazilianHolidays.Data.Context;
+﻿using BrazilianHolidaysApi.Data.Context;
+using BrazilianHolidaysApi.Data.Seed;
 
 namespace BrazilianHolidays.Data.Seed;
 
