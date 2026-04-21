@@ -14,13 +14,6 @@ public class FeriadoRepository : IFeriadoRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<Feriado>> ObterTodosPorAnoAsync(int ano)
-    {
-        return await _context.Feriados
-            .Where(f => f.Data.Year == ano)
-            .OrderBy(f => f.Data)
-            .ToListAsync();
-    }
 
     public async Task<IEnumerable<Feriado>> ObterPorAnoETipoAsync(int ano, TipoFeriado tipo)
     {
@@ -38,17 +31,6 @@ public class FeriadoRepository : IFeriadoRepository
                      (f.Tipo == TipoFeriado.Estadual && f.UF == uf)))
                    .OrderBy(f => f.Data)
                    .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Feriado>> ObterPorAnoEMunicipioAsync(int ano, int codigoIbge)
-    {
-        return await _context.Feriados
-            .Where(f => f.Data.Year == ano &&
-               (f.Tipo == TipoFeriado.Nacional ||
-                f.Tipo == TipoFeriado.Estadual ||
-                (f.Tipo == TipoFeriado.Municipal && f.CodigoIbgeMunicipio == codigoIbge)))
-            .OrderBy(f => f.Data)
-            .ToListAsync();
     }
 
     public async Task<Feriado?> ObterProximoFeriadoAsync()

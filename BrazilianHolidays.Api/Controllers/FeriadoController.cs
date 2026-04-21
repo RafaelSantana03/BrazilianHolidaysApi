@@ -14,12 +14,12 @@ public class FeriadoController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("{ano}")]
-    public async Task<IActionResult> ObterTodos(int ano)
-    {
-        var feriados = await _service.ObterTodosPorAnoAsync(ano);
-        return Ok(feriados);
-    }
+    //[HttpGet("{ano}")]
+    //public async Task<IActionResult> ObterTodos(int ano)
+    //{
+    //    var feriados = await _service.ObterTodosPorAnoAsync(ano);
+    //    return Ok(feriados);
+    //}
 
     [HttpGet("{ano}/nacionais")]
     public async Task<IActionResult> ObterNacionais(int ano)
@@ -35,12 +35,12 @@ public class FeriadoController : ControllerBase
         return Ok(feriados);
     }
 
-    [HttpGet("{ano}/municipio/{codigoIbge}")]
-    public async Task<IActionResult> ObterPorMunicipio(int ano, int codigoIbge)
-    {
-        var feriados = await _service.ObterPorMunicipioAsync(ano, codigoIbge);
-        return Ok(feriados);
-    }
+    //[HttpGet("{ano}/municipio/{codigoIbge}")]
+    //public async Task<IActionResult> ObterPorMunicipio(int ano, int codigoIbge)
+    //{
+    //    var feriados = await _service.ObterPorMunicipioAsync(ano, codigoIbge);
+    //    return Ok(feriados);
+    //}
 
     [HttpGet("proximo")]
     public async Task<IActionResult> ObterProximo()

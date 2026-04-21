@@ -1,21 +1,15 @@
 ﻿using BrazilianHolidays.Domain.Entities;
 using BrazilianHolidays.Domain.Enums;
-using BrazilianHolidays.Data.Context;
 
 namespace BrazilianHolidays.Data.Seed;
 
-public static class FeriadoSeed
+public static class FeriadoNacionalSeed
 {
-    public static void Popular(AppDbContext context)
+    public static IEnumerable<Feriado> Gerar(int anoInicio, int anoFim)
     {
-        if (context.Feriados.Any())
-            return;
-
-        var anoAtual = DateTime.Today.Year;
         var feriados = new List<Feriado>();
 
-        // Feriados fixos nacionais (mesma data todo ano)
-        for (int ano = anoAtual; ano <= anoAtual + 5; ano++)
+        for (int ano = anoInicio; ano <= anoFim; ano++)
         {
             feriados.AddRange(new[]
             {
@@ -26,26 +20,26 @@ public static class FeriadoSeed
                 new Feriado { Nome = "Nossa Senhora Aparecida", Data = new DateOnly(ano, 10, 12), Tipo = TipoFeriado.Nacional, Recorrente = true, Descricao = "Padroeira do Brasil" },
                 new Feriado { Nome = "Finados", Data = new DateOnly(ano, 11, 2), Tipo = TipoFeriado.Nacional, Recorrente = true, Descricao = "Dia de Finados" },
                 new Feriado { Nome = "Proclamação da República", Data = new DateOnly(ano, 11, 15), Tipo = TipoFeriado.Nacional, Recorrente = true, Descricao = "Proclamação da República" },
+                new Feriado { Nome = "Consciência Negra", Data = new DateOnly(ano, 11, 20), Tipo = TipoFeriado.Nacional, Recorrente = true, Descricao = "Dia da Consciência Negra" },
                 new Feriado { Nome = "Natal", Data = new DateOnly(ano, 12, 25), Tipo = TipoFeriado.Nacional, Recorrente = true, Descricao = "Natal" },
             });
 
-            // Feriados móveis (calculados a partir da Páscoa)
             var pascoa = CalcularPascoa(ano);
-
             feriados.AddRange(new[]
             {
                 new Feriado { Nome = "Carnaval", Data = pascoa.AddDays(-47), Tipo = TipoFeriado.Nacional, Recorrente = false, Descricao = "Carnaval" },
                 new Feriado { Nome = "Sexta-feira Santa", Data = pascoa.AddDays(-2), Tipo = TipoFeriado.Nacional, Recorrente = false, Descricao = "Paixão de Cristo" },
                 new Feriado { Nome = "Páscoa", Data = pascoa, Tipo = TipoFeriado.Nacional, Recorrente = false, Descricao = "Páscoa" },
                 new Feriado { Nome = "Corpus Christi", Data = pascoa.AddDays(60), Tipo = TipoFeriado.Nacional, Recorrente = false, Descricao = "Corpus Christi" },
+                new Feriado { Nome = "Véspera de Natal", Data = new DateOnly(ano, 12, 24), Tipo = TipoFeriado.PontoFacultativo, Recorrente = true, Descricao = "Véspera de Natal" },
+                new Feriado { Nome = "Véspera de Ano Novo", Data = new DateOnly(ano, 12, 31), Tipo = TipoFeriado.PontoFacultativo, Recorrente = true, Descricao = "Véspera de Ano Novo" },
+                new Feriado { Nome = "Terça-feira de Carnaval", Data = pascoa.AddDays(-48), Tipo = TipoFeriado.PontoFacultativo, Recorrente = false, Descricao = "Terça-feira de Carnaval" },
             });
         }
 
-        context.Feriados.AddRange(feriados);
-        context.SaveChanges();
+        return feriados;
     }
 
-    // Algoritmo de Meeus/Jones/Butcher
     private static DateOnly CalcularPascoa(int ano)
     {
         int a = ano % 19;
@@ -62,7 +56,6 @@ public static class FeriadoSeed
         int m = (a + 11 * h + 22 * l) / 451;
         int mes = (h + l - 7 * m + 114) / 31;
         int dia = ((h + l - 7 * m + 114) % 31) + 1;
-
         return new DateOnly(ano, mes, dia);
     }
 }

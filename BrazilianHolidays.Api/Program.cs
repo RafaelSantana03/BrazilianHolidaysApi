@@ -1,6 +1,5 @@
 using BrazilianHolidays.Application.Services;
 using BrazilianHolidays.Data.Context;
-using BrazilianHolidays.Data.ExternalServices;
 using BrazilianHolidays.Data.Repositories;
 using BrazilianHolidays.Data.Seed;
 using BrazilianHolidays.Domain.Interfaces;
@@ -23,7 +22,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Injeção de dependência
 builder.Services.AddScoped<IFeriadoRepository, FeriadoRepository>();
 builder.Services.AddScoped<FeriadoService>();
-builder.Services.AddHttpClient<IBrasilApiService, BrasilApiService>();
 
 var app = builder.Build();
 
