@@ -1,5 +1,4 @@
 using BrazilianHolidays.Data.Seed;
-using BrazilianHolidaysApi.Data;
 using BrazilianHolidaysApi.Data.Context;
 using BrazilianHolidaysApi.Data.Repositories;
 using BrazilianHolidaysApi.Interfaces;
@@ -7,6 +6,10 @@ using BrazilianHolidaysApi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Porta do Railway
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -26,13 +29,10 @@ builder.Services.AddScoped<IFeriadoService, FeriadoService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger disponível sempre (útil para portfólio)
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
@@ -43,6 +43,5 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
     FeriadoSeed.Popular(context);
 }
-
 
 app.Run();
