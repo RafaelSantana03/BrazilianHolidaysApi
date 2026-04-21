@@ -1,10 +1,10 @@
-# ???? Brazilian Holidays API
+# 🇧🇷 Brazilian Holidays API
 
 API REST desenvolvida em **ASP.NET Core** para consulta de feriados nacionais e estaduais do Brasil, com dados de 2026 a 2031.
 
 ---
 
-## ?? Tecnologias
+## 🚀 Tecnologias
 
 - [.NET 8](https://dotnet.microsoft.com/)
 - [ASP.NET Core Web API](https://learn.microsoft.com/aspnet/core)
@@ -14,35 +14,35 @@ API REST desenvolvida em **ASP.NET Core** para consulta de feriados nacionais e 
 
 ---
 
-## ?? Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```
 BrazilianHolidaysApi/
-??? Controllers/        # Endpoints da API
-??? Data/
-?   ??? Context/        # AppDbContext (EF Core)
-?   ??? Seed/           # Dados iniciais do banco
-??? Enums/              # TipoFeriado (Nacional, Estadual, Municipal, PontoFacultativo)
-??? Exceptions/         # NegocioException (erros de regra de neg�cio)
-??? Interfaces/         # Contratos de Service e Repository
-??? Migrations/         # Migrations do EF Core
-??? Models/             # Entidade Feriado e FeriadoDto
-??? Repositories/       # Acesso ao banco de dados
-??? Services/           # Regras de neg�cio
+├── Controllers/        # Endpoints da API
+├── Data/
+│   ├── Context/        # AppDbContext (EF Core)
+│   └── Seed/           # Dados iniciais do banco
+├── Enums/              # TipoFeriado (Nacional, Estadual, Municipal, PontoFacultativo)
+├── Exceptions/         # NegocioException (erros de regra de negócio)
+├── Interfaces/         # Contratos de Service e Repository
+├── Migrations/         # Migrations do EF Core
+├── Models/             # Entidade Feriado e FeriadoDto
+├── Repositories/       # Acesso ao banco de dados
+└── Services/           # Regras de negócio
 ```
 
 ---
 
-## ?? Como rodar localmente
+## ⚙️ Como rodar localmente
 
-### Pr�-requisitos
+### Pré-requisitos
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
 - Visual Studio 2022 ou VS Code
 
 ### Passos
 
 ```bash
-# Clone o reposit�rio
+# Clone o repositório
 git clone https://github.com/RafaelSantana03/BrazilianHolidaysApi.git
 
 # Acesse a pasta do projeto
@@ -51,22 +51,22 @@ cd BrazilianHolidaysApi
 # Restaure os pacotes
 dotnet restore
 
-# Rode a aplica��o
+# Rode a aplicação
 dotnet run
 ```
 
-> O banco de dados SQLite � criado e populado automaticamente na primeira execu��o.
+> O banco de dados SQLite é criado e populado automaticamente na primeira execução.
 
-Acesse a documenta��o interativa em:
+Acesse a documentação interativa em:
 ```
 https://localhost:7016/swagger
 ```
 
 ---
 
-## ?? Endpoints
+## 📡 Endpoints
 
-### ? Feriados Nacionais por Ano
+### ✅ Feriados Nacionais por Ano
 
 ```http
 GET /v1/feriados/{ano}/nacionais
@@ -82,7 +82,7 @@ GET /v1/feriados/{ano}/nacionais
     "data": "2026-01-01",
     "tipo": "Nacional",
     "uf": null,
-    "descricao": "Confraterniza��o Universal"
+    "descricao": "Confraternização Universal"
   },
   {
     "nome": "Tiradentes",
@@ -96,7 +96,7 @@ GET /v1/feriados/{ano}/nacionais
 
 ---
 
-### ? Feriados por Estado e Ano
+### ✅ Feriados por Estado e Ano
 
 ```http
 GET /v1/feriados/{ano}/estado/{uf}
@@ -114,17 +114,17 @@ Retorna os feriados **nacionais + estaduais** do estado informado.
     "data": "2026-01-01",
     "tipo": "Nacional",
     "uf": null,
-    "descricao": "Confraterniza��o Universal"
+    "descricao": "Confraternização Universal"
   },
   {
-    "nome": "Anivers�rio de S�o Paulo",
+    "nome": "Aniversário de São Paulo",
     "data": "2026-01-25",
     "tipo": "Estadual",
     "uf": "SP",
     "descricao": null
   },
   {
-    "nome": "Revolu��o Constitucionalista",
+    "nome": "Revolução Constitucionalista",
     "data": "2026-07-09",
     "tipo": "Estadual",
     "uf": "SP",
@@ -135,13 +135,13 @@ Retorna os feriados **nacionais + estaduais** do estado informado.
 
 ---
 
-### ? Pr�ximo Feriado
+### ✅ Próximo Feriado
 
 ```http
 GET /v1/feriados/proximo
 ```
 
-Retorna o pr�ximo feriado nacional a partir da data atual.
+Retorna o próximo feriado nacional a partir da data atual.
 
 **Resposta 200:**
 ```json
@@ -156,38 +156,38 @@ Retorna o pr�ximo feriado nacional a partir da data atual.
 
 ---
 
-## ? Valida��es e Erros
+## ❌ Validações e Erros
 
-| Situa��o | Status | Mensagem |
+| Situação | Status | Mensagem |
 |---|---|---|
-| Ano igual a zero ou negativo | 400 | `Ano inv�lido.` |
-| Ano fora do intervalo dispon�vel | 400 | `Ano fora do intervalo dispon�vel. Consulte entre 2026 e 2031.` |
-| UF com mais ou menos de 2 letras | 400 | `UF inv�lida. Deve conter 2 letras.` |
-| UF inexistente (ex: XX) | 400 | `UF 'XX' n�o encontrada. Verifique se a sigla est� correta.` |
-| Nenhum feriado pr�ximo encontrado | 404 | `Nenhum feriado encontrado.` |
+| Ano igual a zero ou negativo | 400 | `Ano inválido.` |
+| Ano fora do intervalo disponível | 400 | `Ano fora do intervalo disponível. Consulte entre 2026 e 2031.` |
+| UF com mais ou menos de 2 letras | 400 | `UF inválida. Deve conter 2 letras.` |
+| UF inexistente (ex: XX) | 400 | `UF 'XX' não encontrada. Verifique se a sigla está correta.` |
+| Nenhum feriado próximo encontrado | 404 | `Nenhum feriado encontrado.` |
 
 ---
 
-## ??? Arquitetura
+## 🏗️ Arquitetura
 
-O projeto segue uma arquitetura em camadas com separa��o de responsabilidades:
+O projeto segue uma arquitetura em camadas com separação de responsabilidades:
 
 ```
-Controller  ?  valida o formato do input (UF, ano)
-    ?
-Service     ?  aplica as regras de neg�cio (range de ano, UF existente)
-    ?
-Repository  ?  consulta o banco de dados via EF Core
+Controller  →  valida o formato do input (UF, ano)
+    ↓
+Service     →  aplica as regras de negócio (range de ano, UF existente)
+    ↓
+Repository  →  consulta o banco de dados via EF Core
 ```
 
-Princ�pios aplicados:
-- **SOLID** � especialmente Dependency Inversion (interfaces) e Single Responsibility
-- **Clean Code** � nomenclatura clara, m�todos pequenos e coesos
-- **DRY** � valida��o de ano centralizada em `ValidarAno()`
+Princípios aplicados:
+- **SOLID** — especialmente Dependency Inversion (interfaces) e Single Responsibility
+- **Clean Code** — nomenclatura clara, métodos pequenos e coesos
+- **DRY** — validação de ano centralizada em `ValidarAno()`
 
 ---
 
-## ?? Autor
+## 👤 Autor
 
 **Rafael Santana**
 
