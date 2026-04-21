@@ -1,4 +1,5 @@
-﻿using BrazilianHolidaysApi.Services;
+﻿using BrazilianHolidaysApi.Exceptions;
+using BrazilianHolidaysApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BrazilianHolidaysApi.Controllers;
@@ -17,15 +18,37 @@ public class FeriadoController : ControllerBase
     [HttpGet("{ano}/nacionais")]
     public async Task<IActionResult> ObterNacionais(int ano)
     {
-        var feriados = await _service.ObterNacionaisAsync(ano);
-        return Ok(feriados);
+        if (ano <= 0)
+            return BadRequest("Ano inválido.");
+        try
+        {
+            var feriados = await _service.ObterNacionaisAsync(ano);
+            return Ok(feriados);
+        }
+        catch (NegocioException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
     }
 
     [HttpGet("{ano}/estado/{uf}")]
     public async Task<IActionResult> ObterPorUF(int ano, string uf)
     {
-        var feriados = await _service.ObterPorUFAsync(ano, uf);
-        return Ok(feriados);
+        if (ano <= 0)
+            return BadRequest("Ano inválido.");
+        if (uf.Length != 2 || !uf.All(char.IsLetter))
+            return BadRequest("UF inválida. Deve conter 2 letras.");
+        try
+        {
+            var feriados = await _service.ObterPorUFAsync(ano, uf);
+            return Ok(feriados);
+        }
+        catch (NegocioException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        
     }
 
     [HttpGet("proximo")]

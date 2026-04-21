@@ -25,11 +25,11 @@ public class FeriadoRepository : IFeriadoRepository
     public async Task<IEnumerable<Feriado>> ObterPorAnoEUFAsync(int ano, string uf)
     {
         return await _context.Feriados
-                   .Where(f => f.Data.Year == ano &&
-                     (f.Tipo == TipoFeriado.Nacional ||
-                     (f.Tipo == TipoFeriado.Estadual && f.UF == uf)))
-                   .OrderBy(f => f.Data)
-                   .ToListAsync();
+            .Where(f => f.Data.Year == ano &&
+            (f.Tipo == TipoFeriado.Nacional ||
+            (f.Tipo == TipoFeriado.Estadual && f.UF == uf)))
+            .OrderBy(f => f.Data)
+            .ToListAsync();
     }
 
     public async Task<Feriado?> ObterProximoFeriadoAsync()
@@ -44,7 +44,7 @@ public class FeriadoRepository : IFeriadoRepository
     public async Task AdicionarAsync(Feriado feriado)
     {
         await _context.Feriados.AddAsync(feriado);
-        await _context.SaveChangesAsync();  
+        await _context.SaveChangesAsync();
     }
 
     public async Task AdicionarVariosAsync(IEnumerable<Feriado> feriados)
@@ -56,5 +56,11 @@ public class FeriadoRepository : IFeriadoRepository
     public async Task<bool> ExisteParaAnoAsync(int ano)
     {
         return await _context.Feriados.AnyAsync(f => f.Data.Year == ano);
+    }
+
+    public async Task<bool> ExisteUFAsync(string uf)
+    {
+        return await _context.Feriados
+        .AnyAsync(f => f.Tipo == TipoFeriado.Estadual && f.UF == uf);
     }
 }

@@ -12,4 +12,5 @@ public interface IFeriadoRepository
     Task AdicionarAsync(Feriado feriado);
     Task AdicionarVariosAsync(IEnumerable<Feriado> feriados);
     Task<bool> ExisteParaAnoAsync(int ano);
+    Task<bool> ExisteUFAsync(string uf);
 }

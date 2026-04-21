@@ -22,7 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Injeção de dependência
 builder.Services.AddScoped<IFeriadoRepository, FeriadoRepository>();
-builder.Services.AddScoped<IFeriadoService>();
+builder.Services.AddScoped<IFeriadoService, FeriadoService>();
 
 var app = builder.Build();
 
