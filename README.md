@@ -4,6 +4,13 @@ API REST desenvolvida em **ASP.NET Core** para consulta de feriados nacionais e 
 
 ---
 
+## 🌐 API em Produção
+
+> Acesse a documentação interativa:
+> **[https://brazilianholidaysapi-production.up.railway.app/swagger](https://brazilianholidaysapi-production.up.railway.app/swagger)**
+
+---
+
 ## 🚀 Tecnologias
 
 - [.NET 8](https://dotnet.microsoft.com/)
