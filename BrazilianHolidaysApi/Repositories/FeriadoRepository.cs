@@ -36,7 +36,7 @@ public class FeriadoRepository : IFeriadoRepository
     {
         var hoje = DateOnly.FromDateTime(DateTime.Today);
         return await _context.Feriados
-            .Where(f => f.Data >= hoje)
+            .Where(f => f.Data >= hoje && f.Tipo == TipoFeriado.Nacional)
             .OrderBy(f => f.Data)
             .FirstOrDefaultAsync();
     }
